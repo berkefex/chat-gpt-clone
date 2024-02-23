@@ -26,18 +26,20 @@ export default function RootLayout({
           inter.className
         )}
       >
-        <header className="sticky bg-white top-0 w-full py-8 px-4 flex flex-row justify-between items-center shadow-sm">
-          <h1 className="font-bold text-3xl">Chat</h1>
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button size="icon" variant="outline">
-                <Menu />
-              </Button>
-            </SheetTrigger>
-            <SheetContent></SheetContent>
-          </Sheet>
-        </header>
-        {children}
+        <div className="flex flex-col min-h-screen">
+          <header className="sticky bg-white top-0 w-full py-8 px-4 flex flex-row justify-between items-center shadow-sm">
+            <h1 className="font-bold text-3xl">Chat</h1>
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button size="icon" variant="outline">
+                  <Menu />
+                </Button>
+              </SheetTrigger>
+              <SheetContent></SheetContent>
+            </Sheet>
+          </header>
+          {children}
+        </div>
       </body>
     </html>
   );
