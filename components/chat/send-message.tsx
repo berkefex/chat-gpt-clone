@@ -1,11 +1,12 @@
 "use client";
 
 import { sendMessage } from "@/actions/chat";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { useLocalStorage } from "usehooks-ts";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
+import type { ChatCompletionMessageParam } from "openai/src/resources/index.js";
 
 function Submit() {
   const { pending } = useFormStatus();
@@ -17,7 +18,11 @@ function Submit() {
   );
 }
 
-export default function SendMessage({}: {}) {
+export default function SendMessage({
+  addOptimisticMessage,
+}: {
+  addOptimisticMessage: (message: ChatCompletionMessageParam) => void;
+}) {
   const [chatHistory, setChatHistory] = useLocalStorage<
     Parameters<typeof sendMessage>[0]
   >("chat-history", []);
@@ -26,6 +31,12 @@ export default function SendMessage({}: {}) {
   return (
     <form
       action={async formData => {
+        // will removed after end of the operation
+        addOptimisticMessage({
+          role: "user",
+          content: formData.get("message") as any,
+        });
+
         const { message, response } = await sendMessageWithHistory(formData);
         setChatHistory(chatHistory => [
           ...chatHistory,
