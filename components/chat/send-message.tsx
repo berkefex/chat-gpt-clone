@@ -6,8 +6,8 @@ import { useLocalStorage } from "usehooks-ts";
 import { Button } from "../ui/button";
 import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
-import type { ChatCompletionMessageParam } from "openai/src/resources/index.js";
 import { useRef } from "react";
+import type { ChatMessage } from "@/types/Chat";
 
 function Submit() {
   const { pending } = useFormStatus();
@@ -23,7 +23,7 @@ export default function SendMessage({
   addOptimisticMessage,
   setGotNewResponse,
 }: {
-  addOptimisticMessage: (message: ChatCompletionMessageParam) => void;
+  addOptimisticMessage: (message: ChatMessage) => void;
   setGotNewResponse: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [chatHistory, setChatHistory] = useLocalStorage<

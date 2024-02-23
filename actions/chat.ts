@@ -1,17 +1,14 @@
 "use server";
 
 import { openai } from "@/lib/openai";
-import type { ChatCompletionMessageParam } from "openai/src/resources/index.js";
+import type { ChatMessage } from "@/types/Chat";
 import { z } from "zod";
 
 const sendMessageSchema = z.object({
   message: z.string(),
 });
 
-export async function sendMessage(
-  history: ChatCompletionMessageParam[],
-  formData: FormData
-) {
+export async function sendMessage(history: ChatMessage[], formData: FormData) {
   const validatedFields = sendMessageSchema.safeParse({
     message: formData.get("message"),
   });
