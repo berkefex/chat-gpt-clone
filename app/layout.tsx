@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import LayoutSheet from "@/components/layout-sheet";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,14 +27,7 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           <header className="sticky bg-white top-0 w-full py-6 px-4 flex flex-row justify-between items-center shadow-sm">
             <h1 className="font-bold text-3xl">Chat</h1>
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button size="icon" variant="outline">
-                  <Menu />
-                </Button>
-              </SheetTrigger>
-              <SheetContent></SheetContent>
-            </Sheet>
+            <LayoutSheet />
           </header>
           {children}
         </div>
