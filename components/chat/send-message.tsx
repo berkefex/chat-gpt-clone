@@ -21,8 +21,10 @@ function Submit() {
 
 export default function SendMessage({
   addOptimisticMessage,
+  setGotNewResponse,
 }: {
   addOptimisticMessage: (message: ChatCompletionMessageParam) => void;
+  setGotNewResponse: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [chatHistory, setChatHistory] = useLocalStorage<
     Parameters<typeof sendMessage>[0]
@@ -43,6 +45,7 @@ export default function SendMessage({
         });
 
         const { message, response } = await sendMessageWithHistory(formData);
+        setGotNewResponse(true);
         setChatHistory(chatHistory => [
           ...chatHistory,
           { role: "user", content: message },

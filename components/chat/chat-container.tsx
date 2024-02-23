@@ -4,7 +4,7 @@ import { useReadLocalStorage } from "usehooks-ts";
 import ChatHistory from "./chat-history";
 import SendMessage from "./send-message";
 import { sendMessage } from "@/actions/chat";
-import { useOptimistic } from "react";
+import { useOptimistic, useState } from "react";
 
 export default function ChatContainer({}: {}) {
   const storedChatHistory =
@@ -19,10 +19,19 @@ export default function ChatContainer({}: {}) {
     ]
   );
 
+  // for typewrite animation
+  const [gotNewResponse, setGotNewResponse] = useState(false);
+
   return (
     <>
-      <ChatHistory chatHistory={optimisticChatHistory} />
-      <SendMessage addOptimisticMessage={addOptimisticMessage} />
+      <ChatHistory
+        chatHistory={optimisticChatHistory}
+        enableTypewriterAnimation={!!gotNewResponse}
+      />
+      <SendMessage
+        addOptimisticMessage={addOptimisticMessage}
+        setGotNewResponse={setGotNewResponse}
+      />
     </>
   );
 }
