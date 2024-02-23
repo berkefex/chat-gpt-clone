@@ -36,21 +36,28 @@ export default function SendMessage({
   return (
     <form
       action={async formData => {
+        const message = formData.get("message");
+        if (!message) return;
+
         formRef.current?.reset();
 
         // will removed after end of the operation
         addOptimisticMessage({
           role: "user",
-          content: formData.get("message") as any,
+          content: message as any,
         });
 
-        const { message, response } = await sendMessageWithHistory(formData);
-        setGotNewResponse(true);
-        setChatHistory(chatHistory => [
-          ...chatHistory,
-          { role: "user", content: message },
-          { role: response.role, content: response.content },
-        ]);
+        try {
+          const { message, response } = await sendMessageWithHistory(formData);
+          setGotNewResponse(true);
+          setChatHistory(chatHistory => [
+            ...chatHistory,
+            { role: "user", content: message },
+            { role: response.role, content: response.content },
+          ]);
+        } catch (err) {
+          console.log(err);
+        }
       }}
       ref={formRef}
       className="sticky left-4 right-4 bottom-4 flex flex-row items-center space-x-2"
