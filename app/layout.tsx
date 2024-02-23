@@ -25,9 +25,11 @@ export default function RootLayout({
         )}
       >
         <div className="flex flex-col min-h-screen">
-          <header className="sticky bg-white top-0 w-full py-6 px-4 flex flex-row justify-between items-center shadow-sm">
-            <h1 className="font-bold text-3xl">Chat</h1>
-            <LayoutSheet />
+          <header className="sticky bg-white top-0 w-full py-6 px-4 shadow-sm">
+            <div className="flex flex-row justify-between items-center 2xl:w-[1024px] 2xl:mx-auto">
+              <h1 className="font-bold text-3xl">Chat</h1>
+              <LayoutSheet />
+            </div>
           </header>
           {children}
         </div>
