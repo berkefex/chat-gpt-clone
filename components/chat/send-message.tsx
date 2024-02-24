@@ -13,7 +13,12 @@ function Submit() {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" aria-disabled={pending} className="w-20">
+    <Button
+      type="submit"
+      aria-disabled={pending}
+      className="w-20"
+      disabled={pending}
+    >
       {pending ? <Loader2 className="animate-spin" /> : "Send"}
     </Button>
   );
