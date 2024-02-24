@@ -8,7 +8,11 @@ const sendMessageSchema = z.object({
   message: z.string(),
 });
 
-export async function sendMessage(history: ChatMessage[], formData: FormData) {
+export async function sendMessage(
+  history: ChatMessage[],
+  role: "system" | "user",
+  formData: FormData
+) {
   const validatedFields = sendMessageSchema.safeParse({
     message: formData.get("message"),
   });
@@ -17,11 +21,7 @@ export async function sendMessage(history: ChatMessage[], formData: FormData) {
   const { message } = validatedFields.data;
 
   const completion = await openai.chat.completions.create({
-    messages: [
-      { role: "system", content: "You are a helpful assistant." },
-      ...history,
-      { role: "user", content: message },
-    ],
+    messages: [...history, { role, content: message }],
     model: "gpt-3.5-turbo",
   });
 

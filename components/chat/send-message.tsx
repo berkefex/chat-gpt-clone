@@ -35,7 +35,7 @@ export default function SendMessage({
   const [chatHistory, setChatHistory] = useLocalStorage<
     Parameters<typeof sendMessage>[0]
   >(CHAT_HISTORY_LS_PREFIX, []);
-  const sendMessageWithHistory = sendMessage.bind(null, chatHistory);
+  const sendMessageWithHistory = sendMessage.bind(null, chatHistory, "user");
 
   const formRef = useRef<HTMLFormElement>(null);
 

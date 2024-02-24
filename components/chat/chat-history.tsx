@@ -51,7 +51,7 @@ export default function ChatHistory({
           key={idx}
           className={classNames(
             "py-3 rounded-md",
-            role === "user" ? "bg-muted px-3" : ""
+            role === "user" || role === "system" ? "bg-muted px-3" : ""
           )}
         >
           {chatHistory.length - 1 === idx &&
