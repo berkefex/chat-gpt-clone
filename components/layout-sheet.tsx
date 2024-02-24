@@ -21,9 +21,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
+import { CHAT_HISTORY_LS_PREFIX } from "@/lib/constants";
 
 export default function LayoutSheet({}: {}) {
-  const [, setChatHistory] = useLocalStorage("chat-history", []);
+  const [, setChatHistory] = useLocalStorage(CHAT_HISTORY_LS_PREFIX, []);
 
   return (
     <Sheet>

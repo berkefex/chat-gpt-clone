@@ -8,6 +8,7 @@ import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
 import { useRef } from "react";
 import type { ChatMessage } from "@/types/Chat";
+import { CHAT_HISTORY_LS_PREFIX } from "@/lib/constants";
 
 function Submit() {
   const { pending } = useFormStatus();
@@ -33,7 +34,7 @@ export default function SendMessage({
 }) {
   const [chatHistory, setChatHistory] = useLocalStorage<
     Parameters<typeof sendMessage>[0]
-  >("chat-history", []);
+  >(CHAT_HISTORY_LS_PREFIX, []);
   const sendMessageWithHistory = sendMessage.bind(null, chatHistory);
 
   const formRef = useRef<HTMLFormElement>(null);
