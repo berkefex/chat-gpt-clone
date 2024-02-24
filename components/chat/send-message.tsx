@@ -6,7 +6,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { Button } from "../ui/button";
 import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import type { ChatMessage } from "@/types/Chat";
 import { CHAT_HISTORY_LS_PREFIX } from "@/lib/constants";
 
@@ -36,6 +36,11 @@ export default function SendMessage({
     Parameters<typeof sendMessage>[0]
   >(CHAT_HISTORY_LS_PREFIX, []);
   const sendMessageWithHistory = sendMessage.bind(null, chatHistory, "user");
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -68,7 +73,7 @@ export default function SendMessage({
       ref={formRef}
       className="sticky left-4 right-4 bottom-4 flex flex-row items-center space-x-2"
     >
-      <Input type="text" name="message" />
+      <Input ref={inputRef} type="text" name="message" />
       <Submit />
     </form>
   );

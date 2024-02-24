@@ -8,6 +8,7 @@ import { CHAT_HISTORY_LS_PREFIX, DEFAULT_AI_PROMPT } from "@/lib/constants";
 import { ChatMessage } from "@/types/Chat";
 import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 function Submit() {
   const { pending } = useFormStatus();
@@ -36,6 +37,11 @@ export default function EnterPrompt({
 
   const sendMessageAsSystem = sendMessage.bind(null, [], "system");
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <div>
       <h2 className="mb-2 font-bold">What's your prompt?</h2>
@@ -50,7 +56,12 @@ export default function EnterPrompt({
         }}
         className="flex flex-col space-y-2"
       >
-        <Input type="text" name="message" defaultValue={DEFAULT_AI_PROMPT} />
+        <Input
+          ref={inputRef}
+          type="text"
+          name="message"
+          defaultValue={DEFAULT_AI_PROMPT}
+        />
         <Submit />
       </form>
     </div>
