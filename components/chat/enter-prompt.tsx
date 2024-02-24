@@ -4,7 +4,7 @@ import { sendMessage } from "@/actions/chat";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useLocalStorage } from "usehooks-ts";
-import { CHAT_HISTORY_LS_PREFIX } from "@/lib/constants";
+import { CHAT_HISTORY_LS_PREFIX, DEFAULT_AI_PROMPT } from "@/lib/constants";
 import { ChatMessage } from "@/types/Chat";
 import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
@@ -50,11 +50,7 @@ export default function EnterPrompt({
         }}
         className="flex flex-col space-y-2"
       >
-        <Input
-          type="text"
-          name="message"
-          defaultValue="You are a helpful assistant."
-        />
+        <Input type="text" name="message" defaultValue={DEFAULT_AI_PROMPT} />
         <Submit />
       </form>
     </div>

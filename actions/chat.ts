@@ -1,5 +1,6 @@
 "use server";
 
+import { DEFAULT_AI_PROMPT } from "@/lib/constants";
 import { openai } from "@/lib/openai";
 import type { ChatMessage } from "@/types/Chat";
 import { z } from "zod";
@@ -20,8 +21,18 @@ export async function sendMessage(
 
   const { message } = validatedFields.data;
 
+  const historyHasPrompt = history.some(({ role }) => role === "system");
   const completion = await openai.chat.completions.create({
-    messages: [...history, { role, content: message }],
+    messages: historyHasPrompt
+      ? [...history, { role, content: message }]
+      : [
+          {
+            role: "system",
+            content: DEFAULT_AI_PROMPT,
+          },
+          ...history,
+          { role, content: message },
+        ],
     model: "gpt-3.5-turbo",
   });
 
